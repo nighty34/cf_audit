@@ -1,6 +1,7 @@
 version: '3.4'
 services:
   cf-audit: &auditor
+    image: geometalab/conflator-cf-audit
     build: .
     environment:
       # uncomment following line to enable debugging
