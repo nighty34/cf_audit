@@ -1,7 +1,6 @@
 version: '3.4'
 services:
   cf-audit: &auditor
-    image: geometalab/conflator-cf-audit:py2
     build: .
     environment:
       # uncomment following line to enable debugging
@@ -19,7 +18,6 @@ services:
       - database
   cf-audit-py3:
     <<: *auditor
-    image: geometalab/conflator-cf-audit:py3
     build:
       context: .
       dockerfile: Dockerfile.py3
