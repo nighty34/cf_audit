@@ -29,4 +29,4 @@ on your server as well) using the provided docker-compose file.
 Open your browser at `localhost:8080` and start using it.
 
 In case you don't have admin-rights, uncomment the line in the `docker-compose.yml` with `# ADMINS: ''`.
-You can add multiple admins by separating the values with a comma (`,`), ie. `ADMINS: '1234,98765'`
+You can add multiple admins by separating the values with a comma (`,`), ie. `ADMINS: 1234,98765`.

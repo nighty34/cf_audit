@@ -1,19 +1,30 @@
 version: '3.4'
 services:
   cf-audit: &auditor
+    image: geometalab/conflator-cf-audit:py2
     build: .
     environment:
       # uncomment following line to enable debugging
       # DEBUG: yes
       DATABASE_URI: 'postgresql://cf_audit:pw@database:5432/cf_audit'
       # enter the osm-ids here, which should get admin-rights.
-      ADMINS: ''
+      ADMINS: '2399264'
     env_file:
       - .env
+    volumes:
+      - .:/opt/cf_audit
     ports:
       - "8080:8080"
     depends_on:
       - database
+  cf-audit-py3:
+    <<: *auditor
+    image: geometalab/conflator-cf-audit:py3
+    build:
+      context: .
+      dockerfile: Dockerfile.py3
+    ports:
+      - "8090:8080"
   migrate:
     <<: *auditor
     command: python migrate.py

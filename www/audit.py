@@ -1,9 +1,13 @@
+from __future__ import division
+from builtins import str
+from builtins import range
+from builtins import object
+from past.utils import old_div
 from www import app
 from .db import database, User, Feature, Project, Task, fn_Random
-from flask import session, url_for, redirect, request, render_template, flash, jsonify
+from flask import session, url_for, redirect, request, render_template, flash, json, jsonify
 from flask_oauthlib.client import OAuth
 from peewee import fn
-import json
 import config
 import codecs
 import datetime
@@ -207,7 +211,7 @@ class Pagination(object):
 
     def iter_pages(self, left_edge=2, left_current=2, right_current=5, right_edge=2):
         last = 0
-        for num in xrange(1, self.pages + 1):
+        for num in range(1, self.pages + 1):
             if (num <= left_edge or num > self.pages - right_edge or
                     (num > self.page - left_current - 1 and num < self.page + right_current)):
                 if last + 1 != num:
@@ -236,7 +240,7 @@ def table(name, page):
     show_validated = request.args.get('all') == '1'
     if not show_validated:
         query = query.where(Feature.validates_count < 2)
-    pagination = Pagination(page, PER_PAGE, query.count(True))
+    pagination = Pagination(page, PER_PAGE, query.count())
     columns = set()
     features = []
     for feature in query:
@@ -249,7 +253,7 @@ def table(name, page):
         f = {'ref': feature.ref, 'lon': coord[0], 'lat': coord[1],
              'action': data['properties']['action']}
         tags = {}
-        for p, v in data['properties'].items():
+        for p, v in list(data['properties'].items()):
             if not p.startswith('tags') and not p.startswith('ref_unused_tags'):
                 continue
             k = p[p.find('.')+1:]
@@ -578,9 +582,9 @@ def all_features(pid):
     query = Feature.select().where(Feature.project == project)
     features = []
     for f in query:
-        features.append([f.ref, [f.lat/1e7, f.lon/1e7], f.action])
+        features.append([f.ref, [old_div(f.lat,1e7), old_div(f.lon,1e7)], f.action])
     return app.response_class('features = {}'.format(json.dumps(
-        features, ensure_ascii=False).encode('utf-8')), mimetype='application/javascript')
+        features, ensure_ascii=False)), mimetype='application/javascript')
 
 
 class BBoxes(object):
@@ -643,7 +647,7 @@ def api_feature(pid):
                 bboxes = BBoxes(user)
                 feature = None
                 for f in query:
-                    if bboxes.contains(f.lat/1e7, f.lon/1e7):
+                    if bboxes.contains(old_div(f.lat,1e7), old_div(f.lon,1e7)):
                         feature = f
                         break
                     elif not feature:
