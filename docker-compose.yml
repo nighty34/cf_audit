@@ -7,7 +7,7 @@ services:
       # DEBUG: yes
       DATABASE_URI: 'postgresql://cf_audit:pw@database:5432/cf_audit'
       # enter the osm-ids here, which should get admin-rights.
-      ADMINS: '2399264'
+      ADMINS: ''
     env_file:
       - .env
     volumes:
