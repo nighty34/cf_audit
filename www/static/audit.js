@@ -555,12 +555,26 @@ function renderTagTable(data, audit, editNewTags) {
   var rows = '', notset = '<span class="notset">not set</span>';
   for (var i = 0; i < keys.length; i++) {
     key = keys[i];
+    console.log(key)
+
     if (key.length == 2)
       rows += '<tr class="notagedit"><th>' + esc(key[0]) + '</th><td>' + esc(key[1]) + '</td></tr>';
     else {
-      rows += '<tr class="tagedit"><th rowspan="2">' + esc(key[0]) + '</th>';
-      rows += '<td>' + (!key[1] ? notset : esc(key[1])) + '&nbsp;<input type="radio" name="r'+i+'" value="1-'+i+'"></td>';
-      rows += '</tr><tr class="tagedit lower"><td>' + (!key[2] ? notset : esc(key[2])) + '&nbsp;<input type="radio" name="r'+i+'" value="2-'+i+'"></td></tr>';
+
+      var skip = false;
+
+      if (key.length > 3){
+        if (((key[1] == null) || (key[1] == "")) && ((key[2] == null) || key[2] == "")) {
+          skip = true;
+          console.log("Skipped")
+        }
+      }
+
+      if (!skip){
+        rows += '<tr class="tagedit"><th rowspan="2">' + esc(key[0]) + '</th>';
+        rows += '<td>' + (!key[1] ? notset : esc(key[1])) + '&nbsp;<input type="radio" name="r'+i+'" value="1-'+i+'"></td>';
+        rows += '</tr><tr class="tagedit lower"><td>' + (!key[2] ? notset : esc(key[2])) + '&nbsp;<input type="radio" name="r'+i+'" value="2-'+i+'"></td></tr>';
+      }
     }
   }
   $('#tags').empty().append(rows);
@@ -573,6 +587,8 @@ function renderTagTable(data, audit, editNewTags) {
       return row[2] == '' ? 'yellow' : 'green';
     return 'green';
   }
+
+  //TODO: Fix Empty things here
 
   var rowidx_to_td = {};
   $('#tags td').each(function() {
