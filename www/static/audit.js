@@ -1,4 +1,4 @@
-var map1, map2, marker1, marker2, smarker1, smarker2, feature, keys, lastView, defaultTitle, svButton, new_entry;
+var map1, map2, marker1, marker2, smarker1, smarker2, feature, keys, lastView, defaultTitle, svButton;
 
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(searchString, position){
@@ -563,15 +563,9 @@ function renderTagTable(data, audit, editNewTags) {
       rows += '</tr><tr class="tagedit lower"><td>' + (!key[2] ? notset : esc(key[2])) + '&nbsp;<input type="radio" name="r'+i+'" value="2-'+i+'"></td></tr>';
     }
   }
+
   $('#tags').empty().append(rows);
-
-  $('#new_tags').empty();
-
-  $('#add_tag').onclick = function(){
-    console.log("Hey");
-    addNewTag();
-  }, false);
-
+  $('#add_tag').click(addNewTag);
 
   // Set state of each row
   function cellColor(row, which) {
@@ -612,13 +606,6 @@ function renderTagTable(data, audit, editNewTags) {
     }
   });
 }
-
-var new_tag_id = 0;
-
-function addNewTag() {
-  new_entry = '<tr><th><input type="text" id="new_tag_value_' + new_tag_id + '"></th><td><input type="text" id="new_tag_key_' + new_tag_id + ''"></td></tr>' + new_entry;
-}
-
 
 function displayPoint(data, audit, forPopup) {
   if (!data.ref) {
@@ -712,6 +699,26 @@ function prepareAudit(data) {
   }
 
   return audit;
+}
+
+var new_tag_id = 1;
+
+function addNewTag(e) {
+  var plap = $('#new_tags');
+  var new_value = '<tr><th><input type="text" id="new_tag_key_' + new_tag_id + '"/></th><td><input type="text" id="new_tag_value_' + new_tag_id + '"/><button type="button" id="delete_' + new_tag_id + '">Delete</button></td></tr>';
+  plap.append(new_value);
+
+  var delete_btn = 'delete_' + new_tag_id;
+
+  $(delete_btn).click(deleteRow);
+
+  new_tag_id++;
+  console.log(new_tag_id);
+}
+
+function deleteRow(){
+  var id = 1
+  $('#new_tags').deleteRow(id)
 }
 
 function submit(e) {
