@@ -1,4 +1,4 @@
-var map1, map2, marker1, marker2, smarker1, smarker2, feature, keys, lastView, defaultTitle, svButton;
+var map1, map2, marker1, marker2, smarker1, smarker2, feature, keys, lastView, defaultTitle, svButton, new_entry;
 
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(searchString, position){
@@ -565,6 +565,14 @@ function renderTagTable(data, audit, editNewTags) {
   }
   $('#tags').empty().append(rows);
 
+  $('#new_tags').empty();
+
+  $('#add_tag').onclick = function(){
+    console.log("Hey");
+    addNewTag();
+  }, false);
+
+
   // Set state of each row
   function cellColor(row, which) {
     if (which == 1)
@@ -604,6 +612,13 @@ function renderTagTable(data, audit, editNewTags) {
     }
   });
 }
+
+var new_tag_id = 0;
+
+function addNewTag() {
+  new_entry = '<tr><th><input type="text" id="new_tag_value_' + new_tag_id + '"></th><td><input type="text" id="new_tag_key_' + new_tag_id + ''"></td></tr>' + new_entry;
+}
+
 
 function displayPoint(data, audit, forPopup) {
   if (!data.ref) {
