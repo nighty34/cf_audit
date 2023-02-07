@@ -707,18 +707,7 @@ function addNewTag(e) {
   var plap = $('#new_tags');
   var new_value = '<tr id="tag_row_'+ new_tag_id +'"><th><input type="text" id="new_tag_key_' + new_tag_id + '"/></th><td><input type="text" id="new_tag_value_' + new_tag_id + '"/><button type="button" id="delete_' + new_tag_id + '" onclick="document.getElementById(\'tag_row_' + new_tag_id + '\').remove()">Delete</button></td></tr>';
   plap.append(new_value);
-
-  var delete_btn = 'delete_' + new_tag_id;
-
-  $('delete_1').click(function(){console.log("heyo")});
-
   new_tag_id++;
-  console.log(new_tag_id);
-}
-
-function deleteRow(){
-  var id = 1
-  $('#new_tags').deleteRow(id)
 }
 
 function submit(e) {
