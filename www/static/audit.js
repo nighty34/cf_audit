@@ -701,7 +701,7 @@ function prepareAudit(data) {
   return audit;
 }
 
-var new_tag_id = 1;
+var new_tag_id = 0;
 
 function addNewTag(e) {
   var plap = $('#new_tags');
