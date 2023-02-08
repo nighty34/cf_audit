@@ -726,10 +726,10 @@ function addNewTag(e) {
 
 function submit(e) {
   // Send audit result and query the next feature
-  console.log(e.data)
   var audit = prepareAudit(e.data);
-  console.log(audit)
   var properties = feature['properties'];
+  $('#new_tags').empty();
+  new_tag_id = 0;
   $('#reason_box').hide();
   $('#buttons button').each(function() { $(this).prop('disabled', true); });
   queryNext([feature.ref, e.data.msg == 'skip' ? null : audit, properties]);
