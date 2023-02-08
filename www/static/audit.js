@@ -698,6 +698,10 @@ function prepareAudit(data) {
     }
   }
 
+  if (audit['new'] && audit['new'].length == 0){
+    delete audit['new']
+  }
+
   // Record fixme
   if (fixme)
     audit['fixme'] = fixme;
