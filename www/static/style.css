@@ -67,6 +67,11 @@ h1 {
   color: darkred;
 }
 
+#add_tag{
+  width: 100%;
+  margin-top: 10px;
+}
+
 .tags_wrapper {
   margin: 1em 0;
   overflow-x: auto;
@@ -117,6 +122,29 @@ h1 {
 }
 
 .tags td.red .notset { color: grey; }
+
+.new_tags th{
+  width: 34%;
+}
+
+.new_tags td{
+  width: 100%;
+  padding-right: 2px;
+  padding-left: 10px;
+  border-bottom: 1px solid lightgrey;
+  background-color: lightgreen;
+}
+
+.new_tags input{
+  width: 100%;
+  border: none;
+  background: transparent;
+}
+
+.new_tags th input {
+  font-weight: bold;
+  width 34%;
+}
 
 td input {
   float: right;

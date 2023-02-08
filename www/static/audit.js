@@ -719,7 +719,7 @@ var new_tag_id = 0;
 
 function addNewTag(e) {
   var plap = $('#new_tags');
-  var new_value = '<tr id="tag_row_'+ new_tag_id +'"><th><input type="text" id="new_tag_key_' + new_tag_id + '"/></th><td><input type="text" id="new_tag_value_' + new_tag_id + '"/><button type="button" id="delete_' + new_tag_id + '" onclick="document.getElementById(\'tag_row_' + new_tag_id + '\').remove()">Delete</button></td></tr>';
+  var new_value = '<tr id="tag_row_'+ new_tag_id +'"><th><input type="text" id="new_tag_key_' + new_tag_id + '"/></th><td><input type="text" id="new_tag_value_' + new_tag_id + ' placeholder="not set"/></td><td><button type="button" id="delete_' + new_tag_id + '" onclick="document.getElementById(\'tag_row_' + new_tag_id + '\').remove()">Delete</button></td></tr>';
   plap.append(new_value);
   new_tag_id++;
 }
