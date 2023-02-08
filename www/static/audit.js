@@ -214,6 +214,7 @@ $(function() {
     $('#bad_dup').click({good: false, msg: 'Duplicate'}, submit);
     $('#bad_nosuch').click({good: false, msg: 'Not there'}, submit);
     $('#skip').click({good: true, msg: 'skip'}, submit);
+    $('#add_tag').click(addNewTag);
 
     if (AP.forceRef)
       querySpecific(AP.forceRef);
@@ -565,7 +566,6 @@ function renderTagTable(data, audit, editNewTags) {
   }
 
   $('#tags').empty().append(rows);
-  $('#add_tag').click(addNewTag);
 
   // Set state of each row
   function cellColor(row, which) {
