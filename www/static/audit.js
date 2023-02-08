@@ -684,6 +684,20 @@ function prepareAudit(data) {
     }
   }
 
+  for (var i = 0; i < new_tag_id; i++){
+    var key = $('#new_tag_key_' + i);
+    var value = $('#new_tag_value_' + i);
+    if (key != null && value != null){
+      if (!audit['new']){
+        audit['new'] = [];
+      }
+      var new_entry = key.val() + ":" + value.val();
+      if((!new_entry.startsWith(':')) && (key.val() != undefined) && (value.val() != undefined)){
+        audit['new'].push(key.val() + ":"  + value.val());
+      }
+    }
+  }
+
   // Record fixme
   if (fixme)
     audit['fixme'] = fixme;
@@ -712,7 +726,9 @@ function addNewTag(e) {
 
 function submit(e) {
   // Send audit result and query the next feature
+  console.log(e.data)
   var audit = prepareAudit(e.data);
+  console.log(audit)
   var properties = feature['properties'];
   $('#reason_box').hide();
   $('#buttons button').each(function() { $(this).prop('disabled', true); });
